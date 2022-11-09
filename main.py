@@ -6,14 +6,13 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
 import pandas as pd
+import numpy as np
 
 app = dash.Dash(__name__)
 server = app.server
 
 # assume you have a "long-form" data frame
 
-
-app = Dash(__name__)
 
 flights_weather = pd.read_pickle('flights_weather.pkl')
 df = flights_weather[flights_weather['dep_delay'] > 60]
