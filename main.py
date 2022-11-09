@@ -1,14 +1,12 @@
 # Run this app with `python app.py` and
 # visit http://127.0.0.1:8050/ in your web browser.
 
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import Dash, html, dcc
 import plotly.express as px
 import pandas as pd
 import numpy as np
 
-app = dash.Dash(__name__)
+app = Dash(__name__)
 server = app.server
 
 # assume you have a "long-form" data frame
@@ -60,4 +58,4 @@ app.layout = html.Div(children = [
 ])
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port=6657)
+    app.run_server(debug=True, port=9527)

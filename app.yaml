@@ -9,7 +9,7 @@ resources:
   memory_gb: 1
   disk_size_gb: 10
 
-entrypoint: gunicorn -b 0.0.0.0:6657 main:server
+entrypoint: gunicorn -b 0.0.0.0:9527 main:server
 
 
 
