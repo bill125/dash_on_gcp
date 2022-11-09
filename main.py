@@ -13,8 +13,15 @@ server = app.server
 
 # assume you have a "long-form" data frame
 
-
-flights_weather = pd.read_pickle('flights_weather.pkl')
+flights = pd.read_csv("flights.csv.gz")
+airports = pd.read_csv("airports.csv")
+weather = pd.read_csv('weather.csv.gz')
+flights_weather = flights.merge(weather, on=['year','month','day','hour'], how='left')
+for colname in ['dewp', 'humid', 'wind_speed', 'wind_dir']:
+    flights_weather[colname] = flights_weather.apply(lambda row: row[''.join([colname, '_', row['origin']])] \
+                                     if row['origin'] in ['EWR', 'JFK', 'LGA'] else np.NAN, axis=1)
+for airport in ['EWR', 'JFK', 'LGA']:
+    flights_weather.drop(['dewp_{}'.format(airport), 'humid_{}'.format(airport), 'wind_dir_{}'.format(airport), 'wind_speed_{}'.format(airport)], inplace=True, axis=1)
 df = flights_weather[flights_weather['dep_delay'] > 60]
 humid_bins = np.arange(df['humid'].min(),df['humid'].max(),2)
 wind_speed_bins = np.arange(df.wind_speed.min(),df.wind_speed.max(),2)
